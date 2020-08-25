@@ -1,0 +1,26 @@
+// Index Page
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Launch Documents Index</title>
+
+    <link rel="stylesheet" type="text/css" href="./stylesheets/style.css">
+
+  </head>
+  <body>
+    <div id="printable">
+      <h1>Launch Documents Index</h1>
+      <p>Launch documents. Please do not share links directly.</p>
+        <ul id="index">
+        <% for( var i=0; i < results.length; i++ ) { %>
+          <li><a href="/page/<%= results[i].handle %>"><%= results[i].title %></a></li>
+        <% } %>
+
+        </ul>
+    </div>
+
+    <script type>
+  </body>
+</html>

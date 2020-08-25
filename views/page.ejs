@@ -1,0 +1,69 @@
+<!-- Standard page format for most documents -->
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title><%= document.id %> </title>
+
+    <script src="../scripts/html2pdf.bundle.min.js" ></script> <!-- Handles PDF generation -->
+
+    <!-- <script src="../scripts/pngcompression.js" ></script> -->
+
+    <link rel="stylesheet" type="text/css" href="../stylesheets/style.css">
+
+  </head>
+  <body>
+    <div class="sidenav">
+      <a href='/'>Home</a></br>
+      <a href="https://launch-documentation.prismic.io/documents~b=working&c=published&l=en-au/<%= document.id %>"> Edit in Prismic</a></br></br>
+      <h3>Localize</h3>
+      <select name="localize" id="localize" onchange="localizeText()">
+        <option value="apac" >APAC</option>
+        <option value="emea" selected>EMEA</option>
+        <option value="na">NA</option>
+      </select></br></br>
+
+      <button id="download" onclick="downloadPDF()">Download PDF</button>
+
+    </div>
+
+    <div class="main">
+      <h2 class="content-preview-title">Content Preview</h2>
+    <div id="printable">
+      <!-- Anything in this div will be added to the generate -->
+
+      <image class="header-image" style="width:  <%= document.data['header-image']['dimensions']["width"] %>;height:  <%= document.data['header-image']['dimensions']["height"] %>;" src="https://images.prismic.io/launch-documentation/6588a52d-255a-4542-88ab-158381e8d0dd_shopify-plus-logo--black.png" />
+      <!-- <image class="header-image" style="width:  <%= document.data['header-image']['dimensions']["width"] %>;height:  <%= document.data['header-image']['dimensions']["height"] %>;" src="../images/shopify-plus-logo--black.png" /> -->
+      <h1><%= document.data.title[0].text %></h1>
+      <div id="content">
+        <%- content %>
+      </div>
+    </div>
+  </div>
+
+
+    <script type="text/javascript">
+    function downloadPDF() {
+      // https://github.com/eKoopmans/html2pdf.js/blob/master/dist/html2pdf.bundle.min.js
+      var element = document.getElementById("printable");
+      var pdfOptions = {
+        margin:       1,
+        filename:     '<%= document.data.title[0].text %>.pdf',
+        format: 'a4',
+        html2canvas:  { scale: 4, allowTaint: 'true', backgroundColor: null, imageTimeout: 0, logging: true, useCORS: true },
+        image:        { type: 'jpeg', quality: 1 },
+        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' },
+        pagebreak: {mode : 'avoid-all'}, // Page break to avoid splitting content up
+        enableLinks : true
+      };
+      // Save PDF
+      html2pdf().set(pdfOptions ).from(element).save();
+    }
+
+    </script>
+    <script src="../scripts/translate.js" ></script> <!-- Basic transaltion. Eg colour <-> color
+
+
+  </body>
+</html>
